@@ -41,13 +41,14 @@ function view_json(data) {
 	
 	let price_col;
 	let cat_col;// category column
+	let cat_array=[]; //array to hold distinct category value
 	let rate_col; // rating column
 
     // Get the container element where the table will be inserted
     let container = $("#container");
 
     // Create the table element
-    let table = $("<table>");
+    let table = $("<table id='data'>");
 
     // Get the keys (column names) of the first object in the JSON data
     let cols = Object.keys(data[0]);
@@ -100,12 +101,12 @@ function view_json(data) {
 				rate_str = rate_str.replace(",","<br>");
 				rate_str = rate_str.replace(/"/g,'');
 				td.html(rate_str);
-				//td.text(elem[rate] + " (" + elem[count] + ")");
 				break;
-			case price_col:
-				
 			case cat_col:
-				
+				if (!cat_array.includes(elem) ) {
+					cat_array.push(elem);
+				}
+			case price_col:
 			default:
 				td.text(elem); // Set the value as the text of the table cell
 		}
@@ -127,4 +128,26 @@ function view_json(data) {
 	
 	// add filter by category
 	
+	var filter_str = "";
+	filter_str += "<form><label for='filterBy'>Filter by Category</label>" +
+        "<select name='filterBy' id='filterBy'>";
+		
+	//option
+	cat_array.forEach(function (item) {
+		filter_str += '<option value="' + item + '">' + item + '</option>';
+	});
+	
+	filter_str += "</select><input type='button' id='button_filter' value='Filter' onclick='filter_data()'></form><br>";	
+	
+	table.before(filter_str);
+}
+
+function filter_data() {
+	$('#data').children().show();
+	
+	console.log( $('#filterBy').val() );
+	console.log( $('tr:not(:contains("'+ $('#filterBy').val() +'"))' ) );
+	
+	$('tr:not(:contains("'+ $('#filterBy').val() +'"))').hide();
+	$('#data').children().first().show();
 }
