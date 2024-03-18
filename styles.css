@@ -28,8 +28,12 @@ td, th {
     padding: 10px;
 }
 th {
-    text - transform: uppercase;
+    text-transform: uppercase;
 }
 img {
     width: 5vw;
+}
+#container {
+	width: 90vw;
+	margin: 0 auto;
 }

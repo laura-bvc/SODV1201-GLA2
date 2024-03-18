@@ -78,7 +78,9 @@ function view_json(data) {
         tr.append(th); // Append the header cell to the header row
     });
     thead.append(tr); // Append the header row to the header
-    table.append(tr) // Append the header to the table
+    table.append(thead) // Append the header to the table
+	
+	let tbody = $("<tbody>");
 
     // Loop through the JSON data and create table rows
     $.each(data, function (i, item) {
@@ -103,6 +105,7 @@ function view_json(data) {
                 td.html(rate_str);
                 break;
             case cat_col:
+				elem = elem.charAt(0).toUpperCase() + elem.slice(1);
                 if (!cat_array.includes(elem)) {
                     cat_array.push(elem);
                 }
@@ -113,15 +116,16 @@ function view_json(data) {
 
             tr.append(td); // Append the table cell to the table row
         });
-        table.append(tr); // Append the table row to the table
+        tbody.append(tr); // Append the table row to the tbody
     });
-    container.append(table) // Append the table to the container element
+	table.append(tbody); 
+    container.append(table);
 
-    // add sort by price (asc/desc) & button
-    table.before("<form><label for='sortBy'>Sort by Price</label>" +
-        "<select name='sortOrder' id='sortOrder'><option value='asc'>Ascending</option>" +
+    // add sort by price (asc/des) & button
+    table.before("<form><label for='sortBy'>Sort by Price </label>" +
+        "<select name='sortBy' id='sortBy'><option value='asc'>Ascending</option>" +
         "<option value='des'>Descending</option></select>" +
-        "<input type='button' id='button_sort' value='Sort'></form><br>");
+        "<input type='button' id='button_sort' value='Sort' onclick='sort_price()'></form><br>");
 
     //$("#button_sort").click(sort_data);
 
@@ -129,7 +133,7 @@ function view_json(data) {
     // add filter by category
 
     var filter_str = "";
-    filter_str += "<form><label for='filterBy'>Filter by Category</label>" +
+    filter_str += "<form><label for='filterBy'>Filter by Category </label>" +
     "<select name='filterBy' id='filterBy'>";
 
     //option
@@ -143,11 +147,21 @@ function view_json(data) {
 }
 
 function filter_data() {
-    $('#data').children().show();
-
-    console.log($('#filterBy').val());
-    console.log($('tr:not(:contains("' + $('#filterBy').val() + '"))'));
+    $('#data').find('tbody').children().show(); // reset last filter
 
     $('tr:not(:contains("' + $('#filterBy').val() + '"))').hide();
-    $('#data').children().first().show();
+	$('#data').find('thead').children().show();// show thead
+}
+
+function sort_price() {
+
+	$('#data').find('tbody').find('tr').sort(function(a,b) {
+			if ( $('#sortBy').val() == "asc" ) {
+				// sort price in Ascending order	
+				return ( parseFloat($('td:eq(2)',a).text()) >= parseFloat($('td:eq(2)',b).text()) )? 1:-1;
+			} else{
+				// sort price in Descending order
+				return ( parseFloat($('td:eq(2)',a).text()) >= parseFloat($('td:eq(2)',b).text()) )? -1:1;
+			}
+	}).appendTo( $('#data').find('tbody') );
 }
