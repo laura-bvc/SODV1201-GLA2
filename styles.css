@@ -1,8 +1,20 @@
-      table, th, td {
-         border: 1px solid black;
-         border-collapse: collapse; 
-      }
-      td, th {
-         padding: 10px;
-		 text-transform: uppercase;
-      }
+/**
+* @name: GLA 2
+* @Course Code: SODV1201
+* @class: Software Development Diploma program.
+* @author: Laurainda Fan
+**/
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse; 
+    }
+    td, th {
+        padding: 10px;
+    }
+	th {
+		text-transform: uppercase;
+	}
+	img {
+		width: 5vw;
+	}
