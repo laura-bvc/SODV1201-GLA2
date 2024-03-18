@@ -1,20 +1,35 @@
 /**
-* @name: GLA 2
-* @Course Code: SODV1201
-* @class: Software Development Diploma program.
-* @author: Laurainda Fan
-**/
+ * @name: GLA 2
+ * @Course Code: SODV1201
+ * @class: Software Development Diploma program.
+ * @author: Laurainda Fan
+ **/
 
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse; 
-    }
-    td, th {
-        padding: 10px;
-    }
-	th {
-		text-transform: uppercase;
-	}
-	img {
-		width: 5vw;
-	}
+body {
+    font-family: 'Brush Script MT', 'Lucida Sans Typewriter', Helvetica, sans-serif;
+    text-align: center;
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-cream);
+	line-height: 200%;
+}
+
+:root {
+	--bg-cream: #FFFDD0;
+	--bg-text: #274472;
+}
+
+
+table, th, td {
+    border: 1px solid black;
+    border - collapse: collapse;
+}
+td, th {
+    padding: 10px;
+}
+th {
+    text - transform: uppercase;
+}
+img {
+    width: 5vw;
+}
